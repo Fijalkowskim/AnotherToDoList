@@ -1,17 +1,19 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
+import { useToDoList } from "../context/ToDoListContext";
 
-interface Props {
-  newToDoContent: string;
-  setToDoContent: React.Dispatch<React.SetStateAction<string>>;
-  addToDo: (e: React.FormEvent) => void;
-}
-
-function InputField({ newToDoContent, setToDoContent, addToDo }: Props) {
+function InputField() {
+  const { addToDo } = useToDoList();
   const inputRef = useRef<HTMLInputElement>(null);
+
+  const [newToDoContent, setNewToDoContent] = useState<string>("");
+  const SubmitAddToDo = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (addToDo(newToDoContent)) setNewToDoContent("");
+  };
   return (
     <form
       onSubmit={(e) => {
-        addToDo(e);
+        SubmitAddToDo(e);
         inputRef.current?.blur();
       }}
       className="w-2/3 h-16 flex justify-center mx-auto relative "
@@ -21,7 +23,7 @@ function InputField({ newToDoContent, setToDoContent, addToDo }: Props) {
         ref={inputRef}
         placeholder="Enter a task"
         value={newToDoContent}
-        onChange={(e) => setToDoContent(e.target.value)}
+        onChange={(e) => setNewToDoContent(e.target.value)}
         className=" w-full h-full bg-primary-300 text-left text-2xl tracking-tight rounded-l-full rounded-r-full shadow-sm border-primary-600 
         pl-4 pr-20
         focus:shadow-md  focus:outline-none focus:border-2"
