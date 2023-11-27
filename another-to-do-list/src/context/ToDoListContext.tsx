@@ -7,6 +7,7 @@ interface ToDoListProviderProps {
 interface ToDoListContext {
   addToDo: (newToDoContent: string) => boolean;
   removeToDo: (id: number) => void;
+  toggleIsDone: (id: number) => void;
   toDoList: ToDo[];
 }
 const ToDoListContext = createContext({} as ToDoListContext);
@@ -31,9 +32,18 @@ export function ToDoListProvider({ children }: ToDoListProviderProps) {
   const removeToDo = (id: number) => {
     setToDoList((toDoList) => toDoList.filter((toDo) => toDo.id !== id));
   };
+  const toggleIsDone = (id: number) => {
+    setToDoList((prevToDoList) =>
+      prevToDoList.map((toDo) =>
+        toDo.id === id ? { ...toDo, isDone: !toDo.isDone } : toDo
+      )
+    );
+  };
 
   return (
-    <ToDoListContext.Provider value={{ addToDo, removeToDo, toDoList }}>
+    <ToDoListContext.Provider
+      value={{ addToDo, removeToDo, toggleIsDone, toDoList }}
+    >
       {children}
     </ToDoListContext.Provider>
   );
