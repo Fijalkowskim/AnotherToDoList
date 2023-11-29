@@ -5,11 +5,13 @@ import { useToDoList } from "../context/ToDoListContext";
 import { AnimatePresence } from "framer-motion";
 import { motion } from "framer-motion";
 import { toDoAnimation } from "../model/toDoAnimation";
+import EditWindow from "./EditWindow";
 
 function ToDoList() {
-  const { toDoList, clearList } = useToDoList();
+  const { toDoList, clearList, isEditing } = useToDoList();
   return (
-    <div className="w-5/6 mt-6 mx-auto flex flex-col items-center gap-2">
+    <div className="w-5/6 my-6 mx-auto flex flex-col items-center gap-2">
+      {isEditing && <EditWindow />}
       {toDoList.length > 0 && (
         <motion.button
           className="bg-primary-600 text-xl py-2 px-4 rounded-r-full rounded-l-full shadow-md font-normal mb-2"

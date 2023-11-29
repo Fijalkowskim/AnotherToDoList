@@ -10,6 +10,11 @@ interface ToDoListContext {
   toggleIsDone: (id: number) => void;
   clearList: () => void;
   toDoList: ToDo[];
+  isEditing: boolean;
+  editToDo: (id: number) => void;
+  editedToDo: ToDo | undefined;
+  setEditedToDo: React.Dispatch<React.SetStateAction<ToDo | undefined>>;
+  updateToDo: (toDo: ToDo) => void;
 }
 const ToDoListContext = createContext({} as ToDoListContext);
 
@@ -18,6 +23,8 @@ export function useToDoList() {
 }
 export function ToDoListProvider({ children }: ToDoListProviderProps) {
   const [toDoList, setToDoList] = useState<ToDo[]>([]);
+  const [isEditing, setIsEditing] = useState<boolean>(false);
+  const [editedToDo, setEditedToDo] = useState<ToDo>();
 
   const addToDo = (newToDoContent: string) => {
     if (newToDoContent === "") return false;
@@ -60,10 +67,30 @@ export function ToDoListProvider({ children }: ToDoListProviderProps) {
   const clearList = () => {
     setToDoList([]);
   };
+  const editToDo = (id: number) => {
+    setIsEditing(true);
+    setEditedToDo(toDoList.find((toDo) => toDo.id === id));
+  };
+  const updateToDo = (toDo: ToDo) => {
+    toDoList.map((item) => (item.id === toDo.id ? toDo : item));
+    setIsEditing(false);
+    setEditedToDo(undefined);
+  };
 
   return (
     <ToDoListContext.Provider
-      value={{ addToDo, removeToDo, toggleIsDone, clearList, toDoList }}
+      value={{
+        addToDo,
+        removeToDo,
+        toggleIsDone,
+        clearList,
+        toDoList,
+        isEditing,
+        editToDo,
+        editedToDo,
+        setEditedToDo,
+        updateToDo,
+      }}
     >
       {children}
     </ToDoListContext.Provider>

@@ -12,7 +12,7 @@ interface Props {
 }
 
 function ToDoCard({ toDo }: Props) {
-  const { removeToDo, toggleIsDone } = useToDoList();
+  const { removeToDo, toggleIsDone, editToDo } = useToDoList();
   const [isVisible, setIsVisible] = useState(true);
   const handleRemove = () => {
     setIsVisible(false);
@@ -52,7 +52,10 @@ function ToDoCard({ toDo }: Props) {
           >
             <MdDoneOutline />
           </button>
-          <button className="hover:bg-primary-500 aspect-square h-8 grid place-items-center rounded-full transition-colors">
+          <button
+            onClick={() => editToDo(toDo.id)}
+            className="hover:bg-primary-500 aspect-square h-8 grid place-items-center rounded-full transition-colors"
+          >
             <FiEdit />
           </button>
           <button
