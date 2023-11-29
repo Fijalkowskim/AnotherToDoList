@@ -14,7 +14,7 @@ function InputField() {
     <form
       onSubmit={(e) => {
         SubmitAddToDo(e);
-        inputRef.current?.blur();
+        //inputRef.current?.blur();
       }}
       className="w-2/3 h-16 flex justify-center mx-auto relative "
     >
