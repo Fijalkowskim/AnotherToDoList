@@ -10,7 +10,7 @@ import EditWindow from "./EditWindow";
 function ToDoList() {
   const { toDoList, clearList, isEditing } = useToDoList();
   return (
-    <div className="w-5/6 my-6 mx-auto flex flex-col items-center gap-2">
+    <ul className="w-5/6 my-6 mx-auto flex flex-col items-center gap-2">
       {isEditing && <EditWindow />}
       {toDoList.length > 0 && (
         <motion.button
@@ -31,12 +31,10 @@ function ToDoList() {
           Clear all
         </motion.button>
       )}
-      <AnimatePresence>
-        {toDoList.map((toDo) => (
-          <ToDoCard key={toDo.id} toDo={toDo} />
-        ))}
-      </AnimatePresence>
-    </div>
+      {toDoList.map((toDo) => (
+        <ToDoCard key={toDo.id} toDo={toDo} />
+      ))}
+    </ul>
   );
 }
 

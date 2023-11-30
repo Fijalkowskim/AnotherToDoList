@@ -14,7 +14,7 @@ interface ToDoListContext {
   editToDo: (id: number) => void;
   editedToDo: ToDo | undefined;
   setEditedToDo: React.Dispatch<React.SetStateAction<ToDo | undefined>>;
-  updateToDo: (toDo: ToDo) => void;
+  updateToDo: (toDo: ToDo | undefined) => void;
 }
 const ToDoListContext = createContext({} as ToDoListContext);
 
@@ -71,8 +71,8 @@ export function ToDoListProvider({ children }: ToDoListProviderProps) {
     setIsEditing(true);
     setEditedToDo(toDoList.find((toDo) => toDo.id === id));
   };
-  const updateToDo = (toDo: ToDo) => {
-    toDoList.map((item) => (item.id === toDo.id ? toDo : item));
+  const updateToDo = (toDo: ToDo | undefined) => {
+    setToDoList(toDoList.map((item) => (item.id === toDo?.id ? toDo : item)));
     setIsEditing(false);
     setEditedToDo(undefined);
   };
