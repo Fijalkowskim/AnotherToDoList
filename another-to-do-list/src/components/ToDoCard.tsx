@@ -25,7 +25,7 @@ function ToDoCard({ toDo }: Props) {
         exit="exit"
         className={`w-5/6 ${
           toDo.isDone ? "bg-primary-400" : "bg-primary-300"
-        } border-primary-500 border-2 shadow-sm p-4 flex items-center gap-4 text-xl 
+        } border-primary-500 border-2 shadow-sm px-2 md:p-4 flex items-center gap-4 text-lg md:text-xl 
           }`}
       >
         <p
@@ -35,27 +35,31 @@ function ToDoCard({ toDo }: Props) {
         >
           {toDo.content}
         </p>
-        <p className=" w-36 text-right">
-          {new Date(toDo.date).toLocaleDateString()}
-        </p>
-        <button
-          onClick={() => toggleIsDone(toDo.id)}
-          className="hover:bg-primary-500 aspect-square h-8 grid place-items-center rounded-full transition-colors"
-        >
-          <MdDoneOutline />
-        </button>
-        <button
-          onClick={() => editToDo(toDo.id)}
-          className="hover:bg-primary-500 aspect-square h-8 grid place-items-center rounded-full transition-colors"
-        >
-          <FiEdit />
-        </button>
-        <button
-          onClick={() => removeToDo(toDo.id)}
-          className="hover:bg-primary-500 aspect-square h-8 grid place-items-center rounded-full transition-colors"
-        >
-          <AiOutlineDelete />
-        </button>
+        <div className="flex flex-col justify-center items-center md:gap-4 md:flex-row">
+          <p className="text-center md:w-36 md:text-right">
+            {new Date(toDo.date).toLocaleDateString()}
+          </p>
+          <div className="flex items-center md:gap-4">
+            <button
+              onClick={() => toggleIsDone(toDo.id)}
+              className="hover:bg-primary-500 aspect-square h-8 grid place-items-center rounded-full transition-colors"
+            >
+              <MdDoneOutline />
+            </button>
+            <button
+              onClick={() => editToDo(toDo.id)}
+              className="hover:bg-primary-500 aspect-square h-8 grid place-items-center rounded-full transition-colors"
+            >
+              <FiEdit />
+            </button>
+            <button
+              onClick={() => removeToDo(toDo.id)}
+              className="hover:bg-primary-500 aspect-square h-8 grid place-items-center rounded-full transition-colors"
+            >
+              <AiOutlineDelete />
+            </button>
+          </div>
+        </div>
       </motion.li>
     </AnimatePresence>
   );

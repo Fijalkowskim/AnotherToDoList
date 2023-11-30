@@ -16,7 +16,7 @@ function InputField() {
         SubmitAddToDo(e);
         //inputRef.current?.blur();
       }}
-      className="w-2/3 h-16 flex justify-center mx-auto relative "
+      className="w-5/6 sm:w-2/3 h-16 flex justify-center mx-auto relative "
     >
       <input
         type="input"

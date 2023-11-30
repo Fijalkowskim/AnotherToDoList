@@ -10,7 +10,7 @@ import EditWindow from "./EditWindow";
 function ToDoList() {
   const { toDoList, clearList, isEditing } = useToDoList();
   return (
-    <ul className="w-5/6 my-6 mx-auto flex flex-col items-center gap-2">
+    <ul className="sm:w-5/6 my-6 mx-auto flex flex-col items-center gap-2">
       {isEditing && <EditWindow />}
       {toDoList.length > 0 && (
         <motion.button
