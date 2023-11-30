@@ -1,5 +1,13 @@
-import { ReactNode, createContext, useContext, useState } from "react";
+import {
+  ReactNode,
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+} from "react";
 import { ToDo } from "../model/model";
+import { withCookies, Cookies } from "react-cookie";
+import { useCookies } from "react-cookie";
 
 interface ToDoListProviderProps {
   children: ReactNode;
@@ -25,7 +33,25 @@ export function ToDoListProvider({ children }: ToDoListProviderProps) {
   const [toDoList, setToDoList] = useState<ToDo[]>([]);
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const [editedToDo, setEditedToDo] = useState<ToDo>();
+  const [cookies, setCookie] = useCookies(["todoList"]);
 
+  const saveToDoListToCookies = () => {
+    setCookie("todoList", JSON.stringify(toDoList), { path: "/" });
+  };
+  const loadToDoListFromCookies = () => {
+    const todoListFromCookies = cookies.todoList;
+    if (todoListFromCookies) {
+      setToDoList(todoListFromCookies);
+    }
+  };
+  useEffect(() => {
+    loadToDoListFromCookies();
+  }, []);
+  useEffect(() => {
+    saveToDoListToCookies();
+  }, [toDoList]);
+
+  //ToDoListContext functions
   const addToDo = (newToDoContent: string) => {
     if (newToDoContent === "") return false;
     const newToDo: ToDo = {
@@ -46,8 +72,9 @@ export function ToDoListProvider({ children }: ToDoListProviderProps) {
         toDo.id === id ? { ...toDo, isDone: !toDo.isDone } : toDo
       );
       const toDo = updatedToDoList.find((item) => item.id === id);
-      if (toDo === undefined) return updatedToDoList;
-      else if (toDo.isDone) {
+      if (toDo === undefined) {
+        return updatedToDoList;
+      } else if (toDo.isDone) {
         const indexOfItem = updatedToDoList.findIndex((toDo) => toDo.id === id);
 
         if (indexOfItem !== -1) {
@@ -60,7 +87,6 @@ export function ToDoListProvider({ children }: ToDoListProviderProps) {
         const doneTasks = updatedToDoList.filter((taks) => taks.isDone);
         updatedToDoList = [...undoneTasks, ...doneTasks];
       }
-
       return updatedToDoList;
     });
   };
@@ -76,6 +102,7 @@ export function ToDoListProvider({ children }: ToDoListProviderProps) {
     setIsEditing(false);
     setEditedToDo(undefined);
   };
+  //------ToDoListContext functions
 
   return (
     <ToDoListContext.Provider
