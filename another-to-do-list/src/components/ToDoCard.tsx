@@ -22,12 +22,13 @@ function ToDoCard({ toDo }: Props) {
     //tutaj uruchom animacje toogleIsDone
   };
   return (
-    <AnimatePresence onExitComplete={() => removeToDo(toDo.id)}>
+    <AnimatePresence onExitComplete={() => removeToDo(toDo.id)} mode="sync">
       {isVisible && (
         <motion.div
           key={toDo.id}
           variants={toDoAnimation}
           transition={toDoAnimation.transition}
+          layout
           initial="none"
           animate="visible"
           exit="exit"
