@@ -54,13 +54,27 @@ export function ToDoListProvider({ children }: ToDoListProviderProps) {
   //ToDoListContext functions
   const addToDo = (newToDoContent: string) => {
     if (newToDoContent === "") return false;
+
     const newToDo: ToDo = {
       id: Date.now(),
       content: newToDoContent,
       date: Date.now(),
       isDone: false,
     };
-    setToDoList([...toDoList, newToDo]);
+
+    setToDoList((prevToDoList) => {
+      // Separate completed and incomplete tasks
+      const incompleteTasks = prevToDoList.filter((task) => !task.isDone);
+      const completedTasks = prevToDoList.filter((task) => task.isDone);
+
+      // Sort incomplete tasks by date
+      incompleteTasks.sort((a, b) => a.date - b.date);
+
+      // Concatenate incomplete tasks, new task, and completed tasks
+      const updatedToDoList = [...incompleteTasks, newToDo, ...completedTasks];
+      return updatedToDoList;
+    });
+
     return true;
   };
   const removeToDo = (id: number) => {
