@@ -4,11 +4,16 @@ Welcome to Another To-Do List App, a simple and intuitive to-do list application
 
 ## Table of Contents
 
+- [Interface](#interface)
 - [Installation](#installation)
 - [Usage](#usage)
 - [Features](#features)
 - [Technologies Used](#technologies-used)
 - [License](#license)
+  
+## Interface
+![image](https://github.com/Fijalkowskim/AnotherToDoList/assets/91847461/3caa9689-916b-4107-ab2c-2a305720157c)
+![image](https://github.com/Fijalkowskim/AnotherToDoList/assets/91847461/7e875eb5-7682-4fb8-be99-c7258ce1dd0f)
 
 ## Installation
 
