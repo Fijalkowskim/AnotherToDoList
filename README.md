@@ -2,6 +2,9 @@
 
 Welcome to Another To-Do List App, a simple and intuitive to-do list application built with React, TypeScript, Tailwind CSS, and React Motion. This app allows you to manage your tasks efficiently with features like adding, editing, marking as done, and deleting tasks all with addition of smooth, satisfying animations.
 
+## Website hosted at:
+https://heroic-bombolone-e8b23a.netlify.app/
+
 ## Table of Contents
 
 - [Interface](#interface)
